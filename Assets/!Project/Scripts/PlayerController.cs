@@ -11,10 +11,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpHeight = 1.5f;
     [SerializeField] private float gravity = -20f;
 
-    [Header("Ground Detect")]
-    [SerializeField] private Transform groundCheck;
+    [Header("Ground Detect")]   //mejor para en rampas y bordes 
+    [SerializeField] private Transform groundCheck; //donde esta la esfera 
     [SerializeField] private float groundCheckRadius = 0.3f;
-    [SerializeField] private LayerMask groundMask;   // sirve para que el personaje no se detecte a si mismo
+    [SerializeField] private LayerMask groundMask;   // capas que cuentan como suelo (excluye Player para que no se detecte a sí mismo)
 
     [Header("References")]
     [SerializeField] private Transform cameraTransforms;
