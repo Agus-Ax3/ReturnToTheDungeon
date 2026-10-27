@@ -7,7 +7,7 @@ public class Room : MonoBehaviour
 
     private bool completed = false;
 
-    private void Start()
+    private void Awake()
     {
         if (exitPortal != null)
         {
