@@ -1,7 +1,9 @@
 using UnityEngine;
 
+
 public class Room : MonoBehaviour
 {
+
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private GameObject exitPortal;
 

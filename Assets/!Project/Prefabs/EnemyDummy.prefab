@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5272471350727099209}
   - component: {fileID: 5619898475725467315}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: EnemyDummy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,3 +128,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   maxHealth: 3
+  dropPrefab: {fileID: 5658671313146612033, guid: 5b524b0baa014a64696ea1c115a82d79, type: 3}
+  dropForce: 4

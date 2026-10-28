@@ -3,7 +3,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 3;
-
+    [SerializeField] private GameObject dropPrefab;
+    [SerializeField] private float dropForce = 4f;
     private int currentHealth;
     private CombatRoom combatRoom;
     private Renderer rend;
@@ -35,6 +36,15 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        if (dropPrefab != null)
+        {
+            Vector3 dropPosition = transform.position + Vector3.up;
+            GameObject drop = Instantiate(dropPrefab, dropPosition, Quaternion.identity);
+
+            Rigidbody rb = drop.GetComponent<Rigidbody>();
+            rb.AddForce(Vector3.up * dropForce, ForceMode.Impulse);
+        }
+
         if (combatRoom != null)
         {
             combatRoom.EnemyDefeated();
