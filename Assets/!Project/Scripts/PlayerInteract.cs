@@ -1,33 +1,30 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 public class PlayerInteract : MonoBehaviour
 {
-
     [SerializeField] private float interactDistance = 3f;
-    [SerializeField] private float rayHeight = 1f;
-    [SerializeField] private float downTilt = 0.5f;
+    [SerializeField] private float rayHeight = 0.5f;
 
     private void Update()
     {
         Vector3 origin = transform.position + Vector3.up * rayHeight;
-        Vector3 direction = (transform.forward + Vector3.down * downTilt).normalized;
+
+        // Dirección de la cámara, pero horizontal
+        Vector3 direction = Camera.main.transform.forward;
+        direction.y = 0f;
+        direction.Normalize();
 
         Debug.DrawRay(origin, direction * interactDistance, Color.yellow);
 
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
-            Debug.Log("Apretaste E");
-
             if (Physics.Raycast(origin, direction, out RaycastHit hit, interactDistance))
             {
-                Debug.Log("El rayo tocó: " + hit.collider.name);
-
-                
-            }
-            else
-            {
-                Debug.Log("El rayo no tocó nada");
+                CraftingStation station = hit.collider.GetComponent<CraftingStation>();
+                if (station != null)
+                {
+                    station.Use();
+                }
             }
         }
     }
