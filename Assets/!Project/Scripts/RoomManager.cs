@@ -2,10 +2,10 @@ using UnityEngine;
 using System.Collections.Generic;
 public class RoomManager : MonoBehaviour
 {
-    [SerializeField] private List<Room> rooms;   // todas menos lobby y boss
+    [SerializeField] private List<Room> rooms;   
     [SerializeField] private Room bossRoom;
 
-    private int currentIndex = -1; // -1 = todavía estamos en el lobby
+    private int currentIndex = -1; 
 
     private void Start()
     {
@@ -22,7 +22,7 @@ public class RoomManager : MonoBehaviour
             rooms[randomIndex] = temp;
         }
 
-        // Para ver el orden en la consola
+       
         for (int i = 0; i < rooms.Count; i++)
         {
             Debug.Log("Sala " + (i + 1) + ": " + rooms[i].name);
@@ -38,6 +38,6 @@ public class RoomManager : MonoBehaviour
             return rooms[currentIndex].GetSpawnPoint();
         }
 
-        return bossRoom.GetSpawnPoint(); // ya no quedan salas: vamos al jefe
+        return bossRoom.GetSpawnPoint();
     }
 }

@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     {
         currentHealth -= amount;
 
-        // Se pone más rojo cuanto menos vida le queda
+        
         float t = (float)currentHealth / maxHealth;
         rend.material.color = Color.Lerp(Color.red, Color.white, t);
 

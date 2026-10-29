@@ -11,10 +11,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpHeight = 1.5f;
     [SerializeField] private float gravity = -20f;
 
-    [Header("Ground Detect")]   //mejor para en rampas y bordes 
-    [SerializeField] private Transform groundCheck; //donde esta la esfera 
+    [Header("Ground Detect")]   
+    [SerializeField] private Transform groundCheck; 
     [SerializeField] private float groundCheckRadius = 0.3f;
-    [SerializeField] private LayerMask groundMask;   // capas que cuentan como suelo (excluye Player para que no se detecte a sí mismo)
+    [SerializeField] private LayerMask groundMask;   
 
     [Header("References")]
     [SerializeField] private Transform cameraTransforms;
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void OnEnable()   // onEnable y OnDisable se usa para  activacion y desactivacion de las teclas al pausar o morir el jugador.
+    private void OnEnable()   
     {
         controls.Player.Enable();
     }

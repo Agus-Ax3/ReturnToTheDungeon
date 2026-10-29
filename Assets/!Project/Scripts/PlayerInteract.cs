@@ -9,7 +9,7 @@ public class PlayerInteract : MonoBehaviour
     {
         Vector3 origin = transform.position + Vector3.up * rayHeight;
 
-        // Dirección de la cámara, pero horizontal
+        
         Vector3 direction = Camera.main.transform.forward;
         direction.y = 0f;
         direction.Normalize();
