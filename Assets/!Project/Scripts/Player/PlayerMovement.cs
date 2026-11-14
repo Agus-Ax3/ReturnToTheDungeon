@@ -190,6 +190,9 @@ public class PlayerMovement : MonoBehaviour
 
         // Actualizar las animaciones
         UpdateAnimations(direction.magnitude, isRunning);
+
+        UpdateDirectionalAnimations(direction, isRunning);
+        animator.SetBool("IsGrounded", controller.isGrounded);
     }
 
     private void UpdateAnimations(
@@ -213,4 +216,27 @@ public class PlayerMovement : MonoBehaviour
             Time.deltaTime
         );
     }
+    private void UpdateDirectionalAnimations(
+    Vector3 direction, bool isRunning)
+    {
+        if (animator == null)
+            return;
+
+        bool isLockedOn = lockOnSystem != null &&
+                          lockOnSystem.IsLockedOn;
+
+        animator.SetBool("IsLockedOn", isLockedOn);
+
+        Vector3 localDirection =
+            transform.InverseTransformDirection(direction);
+
+        float animationSpeed = isRunning ? 1f : 0.5f;
+
+        float moveX = localDirection.x * animationSpeed;
+        float moveY = localDirection.z * animationSpeed;
+
+        animator.SetFloat("MoveX", moveX, 0.1f, Time.deltaTime);
+        animator.SetFloat("MoveY", moveY, 0.1f, Time.deltaTime);
+    }
+
 }
