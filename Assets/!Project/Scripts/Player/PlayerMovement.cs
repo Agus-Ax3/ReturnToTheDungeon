@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private LockOnSystem lockOnSystem;
+    [SerializeField] private PlayerDodge playerDodge;
 
     [Header("Animations")]
     [SerializeField] private Animator animator;
@@ -66,6 +67,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (playerDodge != null && playerDodge.IsDodging)
+            return;
         HandleJump();
         Move();
     }
