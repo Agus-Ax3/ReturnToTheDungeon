@@ -883,6 +883,7 @@ GameObject:
   - component: {fileID: 417883557}
   - component: {fileID: 417883556}
   - component: {fileID: 417883555}
+  - component: {fileID: 417883559}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -986,6 +987,19 @@ Transform:
   - {fileID: 96954045}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &417883559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417883554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c91c0b0c21ef4d4ea3a87d298af9d26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  maxHealth: 100
 --- !u!1 &532428106
 GameObject:
   m_ObjectHideFlags: 0
@@ -1226,6 +1240,101 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &562456949
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 562456950}
+  - component: {fileID: 562456952}
+  - component: {fileID: 562456951}
+  - component: {fileID: 562456953}
+  m_Layer: 0
+  m_Name: SwordHitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &562456950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562456949}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.034724798, y: 0.11947815, z: -0.004250243, w: 0.9922203}
+  m_LocalPosition: {x: 0.58378786, y: 0.40713722, z: 0.5430646}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 949530997}
+  m_LocalEulerAnglesHint: {x: 4.023, y: 13.733, z: 0}
+--- !u!54 &562456951
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562456949}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &562456952
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562456949}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.107987046, y: 0.10045093, z: 0.72893614}
+  m_Center: {x: -0.44600332, y: -0.4497566, z: -0.16720143}
+--- !u!114 &562456953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562456949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 451ad98d6c536af4dbdd50e7eced7fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordHitbox
+  damage: 25
 --- !u!1 &580303759
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,6 +1462,24 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &636682463 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: adba394c733224e4fa012da2fe3632c7, type: 3}
+  m_PrefabInstance: {fileID: 1400813732}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &636682464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636682463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0060e2628ba12a646871b4e56c9ccd38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatAnimationEvents
+  swordHitbox: {fileID: 562456953}
 --- !u!1 &708906057
 GameObject:
   m_ObjectHideFlags: 0
@@ -3253,6 +3380,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &845575471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
+  m_Name: Player/Attack
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
+  m_Asset: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_ActionId: 6c2ab1b8-8984-453a-af3d-a3c78ae1679a
 --- !u!1 &898086006
 GameObject:
   m_ObjectHideFlags: 0
@@ -3371,6 +3512,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: e86f1d772a9eea64a88c58ac960f8362, type: 3}
   m_ActionId: 25c5da98-d13b-44d3-b40b-233a8acd30b9
+--- !u!4 &949530997 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9175088765034030054, guid: adba394c733224e4fa012da2fe3632c7, type: 3}
+  m_PrefabInstance: {fileID: 1400813732}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1235456431
 GameObject:
   m_ObjectHideFlags: 0
@@ -3861,9 +4007,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1283408554089789195, guid: adba394c733224e4fa012da2fe3632c7, type: 3}
+      propertyPath: m_Name
+      value: Paladin_J_Nordstrom_Body
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: adba394c733224e4fa012da2fe3632c7, type: 3}
       propertyPath: m_Name
       value: Paladin WProp J Nordstrom
+      objectReference: {fileID: 0}
+    - target: {fileID: 1051571768989249988, guid: adba394c733224e4fa012da2fe3632c7, type: 3}
+      propertyPath: m_Name
+      value: Paladin_J_Nordstrom_Sword
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: adba394c733224e4fa012da2fe3632c7, type: 3}
       propertyPath: m_Controller
@@ -3879,8 +4033,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 9175088765034030054, guid: adba394c733224e4fa012da2fe3632c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 562456950}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: adba394c733224e4fa012da2fe3632c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 636682464}
   m_SourcePrefab: {fileID: 100100000, guid: adba394c733224e4fa012da2fe3632c7, type: 3}
 --- !u!114 &1442568084
 MonoBehaviour:
@@ -4428,6 +4588,7 @@ GameObject:
   - component: {fileID: 2094510249}
   - component: {fileID: 2094510250}
   - component: {fileID: 2094510251}
+  - component: {fileID: 2094510252}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4500,6 +4661,7 @@ MonoBehaviour:
   cameraTransform: {fileID: 1245039925}
   lockOnSystem: {fileID: 2094510248}
   playerDodge: {fileID: 2094510250}
+  playerCombat: {fileID: 0}
   animator: {fileID: 49043782}
   animationDampTime: 0.1
   moveAction: {fileID: 2127082305}
@@ -4571,6 +4733,7 @@ MonoBehaviour:
   animator: {fileID: 49043782}
   cameraTransform: {fileID: 1245039925}
   lockOnSystem: {fileID: 2094510248}
+  playerCombat: {fileID: 0}
   moveAction: {fileID: 1805061395}
   dodgeAction: {fileID: 940200496}
   playerStamina: {fileID: 2094510251}
@@ -4591,6 +4754,27 @@ MonoBehaviour:
   maxStamina: 100
   regenerationRate: 20
   regenerationDelay: 1
+--- !u!114 &2094510252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094510242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3755b4e736e559f4e8efbba0c115ebab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCombat
+  animator: {fileID: 49043782}
+  playerStamina: {fileID: 2094510251}
+  playerDodge: {fileID: 2094510250}
+  attackAction: {fileID: 845575471}
+  attack1Cost: 15
+  attack2Cost: 15
+  attack3Cost: 25
+  comboWindowStart: 0.25
+  comboWindowEnd: 0.75
 --- !u!114 &2127082305
 MonoBehaviour:
   m_ObjectHideFlags: 0

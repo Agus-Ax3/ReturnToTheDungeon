@@ -17,12 +17,12 @@ public class SwordHitbox : MonoBehaviour
         hitbox.enabled = false;
     }
 
-    public void EnableHitbox()
+    public void EnableHitbox(float attackDamage)
     {
+        damage = attackDamage;
         enemiesHit.Clear();
         hitbox.enabled = true;
     }
-
     public void DisableHitbox()
     {
         hitbox.enabled = false;

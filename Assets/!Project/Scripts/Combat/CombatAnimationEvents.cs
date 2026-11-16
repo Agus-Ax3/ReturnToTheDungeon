@@ -4,9 +4,9 @@ public class CombatAnimationEvents : MonoBehaviour
 {
     [SerializeField] private SwordHitbox swordHitbox;
 
-    public void EnableSwordHitbox()
+    public void EnableSwordHitbox(float damage)
     {
-        swordHitbox.EnableHitbox();
+        swordHitbox.EnableHitbox(damage);
     }
 
     public void DisableSwordHitbox()
