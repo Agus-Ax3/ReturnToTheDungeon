@@ -7,6 +7,9 @@ public class PlayerHealth : MonoBehaviour
 
     public float CurrentHealth { get; private set; }
     public float MaxHealth => maxHealth;
+
+    [Header("References")]
+    [SerializeField] private PlayerBlock playerBlock;
     public bool IsDead { get; private set; }
 
     private void Awake()
@@ -46,5 +49,19 @@ public class PlayerHealth : MonoBehaviour
         IsDead = true;
 
         Debug.Log("Jugador derrotado");
+    }
+
+    public void TakeDamage(float damage, Vector3 attackerPosition)
+    {
+        if (IsDead || damage <= 0f)
+            return;
+
+        if (playerBlock != null &&
+            playerBlock.TryBlock(attackerPosition))
+        {
+            return;
+        }
+
+        TakeDamage(damage);
     }
 }

@@ -7,6 +7,14 @@ public class PlayerBlock : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerDodge playerDodge;
 
+    [Header("Block Settings")]
+    [SerializeField] private PlayerStamina playerStamina;
+    [SerializeField] private float blockStaminaCost = 20f;
+    [SerializeField] private float blockAngle = 120f;
+    [SerializeField] private float guardBreakDuration = 1f;
+
+    private float guardBreakTimer;
+
     [Header("Input Actions")]
     [SerializeField] private InputActionReference blockAction;
 
@@ -25,6 +33,9 @@ public class PlayerBlock : MonoBehaviour
 
     private void Update()
     {
+
+        
+
         if (blockAction == null || animator == null)
             return;
 
@@ -48,6 +59,11 @@ public class PlayerBlock : MonoBehaviour
             canBlock = false;
 
         SetBlocking(wantsToBlock && canBlock);
+        if (guardBreakTimer > 0f)
+        {
+            guardBreakTimer -= Time.deltaTime;
+            canBlock = false;
+        }
     }
 
     private void SetBlocking(bool value)
@@ -60,7 +76,51 @@ public class PlayerBlock : MonoBehaviour
 
     public void PlayBlockImpact()
     {
-        if (IsBlocking)
-            animator.SetTrigger("BlockHit");
+        if (!IsBlocking)
+            return;
+
+        animator.ResetTrigger("BlockHit");
+        animator.Play("BlockImpact", 0, 0f);
+    }
+    public bool TryBlock(Vector3 attackerPosition)
+    {
+        if (!IsBlocking || playerStamina == null)
+            return false;
+
+        Vector3 direction = attackerPosition - transform.position;
+        direction.y = 0f;
+
+        if (direction.sqrMagnitude < 0.001f)
+            return false;
+
+        float angle = Vector3.Angle(
+            transform.forward,
+            direction
+        );
+
+        if (angle > blockAngle / 2f)
+            return false;
+
+        if (!playerStamina.HasStamina(blockStaminaCost))
+        {
+            playerStamina.ConsumeStamina(
+                playerStamina.CurrentStamina
+            );
+
+            guardBreakTimer = guardBreakDuration;
+            SetBlocking(false);
+
+            Debug.Log("Guardia rota");
+
+            return false;
+        }
+
+        playerStamina.ConsumeStamina(blockStaminaCost);
+
+        PlayBlockImpact();
+
+        Debug.Log("Ataque bloqueado");
+
+        return true;
     }
 }
