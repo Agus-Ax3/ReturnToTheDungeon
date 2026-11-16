@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private LockOnSystem lockOnSystem;
     [SerializeField] private PlayerDodge playerDodge;
+    [SerializeField] private PlayerCombat playerCombat;
 
     [Header("Animations")]
     [SerializeField] private Animator animator;
@@ -31,6 +32,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private InputActionReference moveAction;
     [SerializeField] private InputActionReference sprintAction;
     [SerializeField] private InputActionReference jumpAction;
+
+    [Header("Stamina")]
+    [SerializeField] private PlayerStamina playerStamina;
+    [SerializeField] private float sprintStaminaCost = 15f;
 
     private CharacterController controller;
 
@@ -67,6 +72,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (playerCombat != null && playerCombat.IsAttacking)
+            return;
         if (playerDodge != null && playerDodge.IsDodging)
             return;
         HandleJump();
@@ -134,7 +141,15 @@ public class PlayerMovement : MonoBehaviour
         direction = Vector3.ClampMagnitude(direction, 1f);
 
         bool isRunning = sprintAction != null &&
-                         sprintAction.action.IsPressed();
+                 sprintAction.action.IsPressed() &&
+                 input.sqrMagnitude > 0.01f;
+
+        if (isRunning && playerStamina != null)
+        {
+            isRunning = playerStamina.ConsumeStamina(
+                sprintStaminaCost * Time.deltaTime
+            );
+        }
 
         float currentSpeed = isRunning ? runSpeed : walkSpeed;
 

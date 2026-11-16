@@ -18,10 +18,16 @@ public class PlayerDodge : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private LockOnSystem lockOnSystem;
+    [SerializeField] private PlayerCombat playerCombat;
 
     [Header("Input Actions")]
     [SerializeField] private InputActionReference moveAction;
     [SerializeField] private InputActionReference dodgeAction;
+
+    [Header("Stamina")]
+    [SerializeField] private PlayerStamina playerStamina;
+    [SerializeField] private float rollStaminaCost = 25f;
+    [SerializeField] private float dodgeStaminaCost = 20f;
 
     private CharacterController controller;
 
@@ -61,8 +67,11 @@ public class PlayerDodge : MonoBehaviour
         }
     }
 
+
     private void TryDodge()
     {
+        if (playerCombat != null && playerCombat.IsAttacking)
+            return;
         if (!controller.isGrounded)
             return;
 
@@ -85,6 +94,17 @@ public class PlayerDodge : MonoBehaviour
 
         bool useRoll = !isLockedOn && hasMovement;
 
+        // Consumo de stamina
+        float staminaCost = useRoll
+            ? rollStaminaCost
+            : dodgeStaminaCost;
+
+        if (playerStamina == null ||
+            !playerStamina.ConsumeStamina(staminaCost))
+        {
+            return;
+        }
+
         if (useRoll)
         {
             StartRoll(input);
@@ -100,6 +120,7 @@ public class PlayerDodge : MonoBehaviour
         animator.SetBool("UseRoll", useRoll);
         animator.SetTrigger("Dodge");
     }
+
 
     private void StartRoll(Vector2 input)
     {
