@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private PlayerBlock playerBlock;
+    [SerializeField] private PlayerDodge playerDodge;
     public bool IsDead { get; private set; }
 
     private void Awake()
@@ -17,10 +18,18 @@ public class PlayerHealth : MonoBehaviour
         CurrentHealth = maxHealth;
     }
 
-    public void TakeDamage(float damage)
+    
+       public void TakeDamage(float damage)
     {
         if (IsDead || damage <= 0f)
             return;
+
+        // Invulnerabilidad durante la esquiva
+        if (playerDodge != null && playerDodge.IsInvulnerable)
+        {
+            Debug.Log("Daño evitado por esquiva");
+            return;
+        }
 
         CurrentHealth = Mathf.Max(
             CurrentHealth - damage, 0f
@@ -32,7 +41,8 @@ public class PlayerHealth : MonoBehaviour
         {
             Die();
         }
-    }
+    
+}
 
     public void Heal(float amount)
     {
@@ -55,6 +65,13 @@ public class PlayerHealth : MonoBehaviour
     {
         if (IsDead || damage <= 0f)
             return;
+
+        // Comprobar invulnerabilidad antes del bloqueo
+        if (playerDodge != null && playerDodge.IsInvulnerable)
+        {
+            Debug.Log("Daño evitado por esquiva");
+            return;
+        }
 
         if (playerBlock != null &&
             playerBlock.TryBlock(attackerPosition))

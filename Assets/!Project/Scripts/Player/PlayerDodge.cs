@@ -29,13 +29,28 @@ public class PlayerDodge : MonoBehaviour
     [SerializeField] private float rollStaminaCost = 25f;
     [SerializeField] private float dodgeStaminaCost = 20f;
 
+    [Header("Invulnerability Settings")]
+    [SerializeField] private float rollInvulnerabilityStart = 0.1f;
+    [SerializeField] private float rollInvulnerabilityEnd = 0.4f;
+
+    [SerializeField] private float dodgeInvulnerabilityStart = 0.1f;
+    [SerializeField] private float dodgeInvulnerabilityEnd = 0.35f;
+
     private CharacterController controller;
 
     private Vector3 dodgeDirection;
     private float dodgeTimer;
     private float currentDodgeSpeed;
+    private float currentDodgeDuration;
+    private float invulnerabilityStart;
+    private float invulnerabilityEnd;
 
     public bool IsDodging { get; private set; }
+    public bool IsInvulnerable =>
+    isActiveAndEnabled &&
+    IsDodging &&
+    currentDodgeDuration - dodgeTimer >= invulnerabilityStart &&
+    currentDodgeDuration - dodgeTimer < invulnerabilityEnd;
 
     private void Awake()
     {
@@ -141,6 +156,10 @@ public class PlayerDodge : MonoBehaviour
 
         currentDodgeSpeed = rollSpeed;
         dodgeTimer = rollDuration;
+
+        currentDodgeDuration = rollDuration;
+        invulnerabilityStart = rollInvulnerabilityStart;
+        invulnerabilityEnd = rollInvulnerabilityEnd;
     }
 
     private void StartDirectionalDodge(Vector2 input)
@@ -170,6 +189,10 @@ public class PlayerDodge : MonoBehaviour
 
         currentDodgeSpeed = dodgeSpeed;
         dodgeTimer = dodgeDuration;
+
+        currentDodgeDuration = dodgeDuration;
+        invulnerabilityStart = dodgeInvulnerabilityStart;
+        invulnerabilityEnd = dodgeInvulnerabilityEnd;
     }
 
     private void UpdateDodge()

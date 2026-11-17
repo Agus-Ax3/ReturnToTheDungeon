@@ -1419,6 +1419,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &546812684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
+  m_Name: Player/Block
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
+  m_Asset: {fileID: -944628639613478452, guid: e86f1d772a9eea64a88c58ac960f8362, type: 3}
+  m_ActionId: 33699cf2-10d6-4e38-bbc7-9c7688a5de79
 --- !u!1 &562456949
 GameObject:
   m_ObjectHideFlags: 0
@@ -4807,6 +4821,7 @@ GameObject:
   - component: {fileID: 2094510252}
   - component: {fileID: 2094510253}
   - component: {fileID: 2094510254}
+  - component: {fileID: 2094510255}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -5006,6 +5021,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHealth: 100
+  playerBlock: {fileID: 2094510255}
 --- !u!114 &2094510254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5019,6 +5035,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthTest
   playerHealth: {fileID: 2094510253}
+--- !u!114 &2094510255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094510242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d37dde2b54a714abd16ee7b1b3f1c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBlock
+  animator: {fileID: 49043782}
+  playerDodge: {fileID: 2094510250}
+  playerStamina: {fileID: 2094510251}
+  blockStaminaCost: 20
+  blockAngle: 120
+  guardBreakDuration: 1
+  blockAction: {fileID: 546812684}
 --- !u!1 &2110826616
 GameObject:
   m_ObjectHideFlags: 0
