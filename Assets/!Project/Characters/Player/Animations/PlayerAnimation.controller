@@ -430,7 +430,7 @@ AnimatorStateTransition:
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
+  m_CanTransitionToSelf: 0
 --- !u!206 &-4082450165400722270
 BlendTree:
   m_ObjectHideFlags: 1
@@ -606,6 +606,18 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &-1774769294561266462
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22e7a833bc80693409765a23e23a7e34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitReactionBehaviour
 --- !u!206 &-1408718218570816092
 BlendTree:
   m_ObjectHideFlags: 1
@@ -1041,7 +1053,8 @@ AnimatorState:
   m_Transitions:
   - {fileID: 3510597264784664342}
   - {fileID: -2070495956256624778}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -1774769294561266462}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
