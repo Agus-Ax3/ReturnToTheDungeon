@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LockOnSystem lockOnSystem;
     [SerializeField] private PlayerDodge playerDodge;
     [SerializeField] private PlayerCombat playerCombat;
+    [SerializeField] private PlayerHealth playerHealth;
 
     [Header("Animations")]
     [SerializeField] private Animator animator;
@@ -72,12 +73,54 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        // Impedir movimiento durante daño o muerte
+        if (playerHealth != null &&
+            (playerHealth.IsDead || playerHealth.IsHit))
+        {
+            jumpBufferTimer = 0f;
+            coyoteTimer = 0f;
+
+            ApplyGravityOnly();
+            return;
+        }
+
         if (playerCombat != null && playerCombat.IsAttacking)
             return;
+
         if (playerDodge != null && playerDodge.IsDodging)
             return;
+
         HandleJump();
         Move();
+    }
+    private void ApplyGravityOnly()
+    {
+        if (controller.isGrounded && verticalVelocity < 0f)
+        {
+            verticalVelocity = -2f;
+        }
+
+        if (verticalVelocity < 0f)
+        {
+            verticalVelocity +=
+                gravity * fallMultiplier * Time.deltaTime;
+        }
+        else
+        {
+            verticalVelocity += gravity * Time.deltaTime;
+        }
+
+        controller.Move(
+            Vector3.up * verticalVelocity * Time.deltaTime
+        );
+
+        UpdateAnimations(0f, false);
+        UpdateDirectionalAnimations(Vector3.zero, false);
+
+        if (animator != null)
+        {
+            animator.SetBool("IsGrounded", controller.isGrounded);
+        }
     }
 
     private void HandleJump()

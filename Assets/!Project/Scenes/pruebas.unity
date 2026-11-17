@@ -4972,6 +4972,10 @@ MonoBehaviour:
   playerStamina: {fileID: 2094510251}
   rollStaminaCost: 25
   dodgeStaminaCost: 20
+  rollInvulnerabilityStart: 0.1
+  rollInvulnerabilityEnd: 0.4
+  dodgeInvulnerabilityStart: 0.1
+  dodgeInvulnerabilityEnd: 0.35
 --- !u!114 &2094510251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5022,6 +5026,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHealth: 100
   playerBlock: {fileID: 2094510255}
+  playerDodge: {fileID: 2094510250}
+  animator: {fileID: 49043782}
 --- !u!114 &2094510254
 MonoBehaviour:
   m_ObjectHideFlags: 0
