@@ -11,20 +11,21 @@ public class PlayerHealth : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerBlock playerBlock;
     [SerializeField] private PlayerDodge playerDodge;
+    [SerializeField] private Animator animator;
     public bool IsDead { get; private set; }
+    public bool IsHit { get; private set; }
 
     private void Awake()
     {
         CurrentHealth = maxHealth;
     }
 
-    
-       public void TakeDamage(float damage)
+
+    public void TakeDamage(float damage)
     {
         if (IsDead || damage <= 0f)
             return;
 
-        // Invulnerabilidad durante la esquiva
         if (playerDodge != null && playerDodge.IsInvulnerable)
         {
             Debug.Log("Daño evitado por esquiva");
@@ -41,8 +42,11 @@ public class PlayerHealth : MonoBehaviour
         {
             Die();
         }
-    
-}
+        else
+        {
+            PlayHitReaction();
+        }
+    }
 
     public void Heal(float amount)
     {
@@ -57,6 +61,11 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         IsDead = true;
+        IsHit = false;
+
+        animator.ResetTrigger("Hit");
+        animator.SetBool("IsHit", false);
+        animator.SetBool("IsDead", true);
 
         Debug.Log("Jugador derrotado");
     }
@@ -80,5 +89,20 @@ public class PlayerHealth : MonoBehaviour
         }
 
         TakeDamage(damage);
+    }
+    private void PlayHitReaction()
+    {
+        IsHit = true;
+
+        animator.SetBool("IsHit", true);
+        animator.ResetTrigger("Hit");
+        animator.SetTrigger("Hit");
+    }
+
+    public void EndHitReaction()
+    {
+        IsHit = false;
+
+        animator.SetBool("IsHit", false);
     }
 }
