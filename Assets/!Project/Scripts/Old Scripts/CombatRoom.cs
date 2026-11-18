@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class CombatRoom : MonoBehaviour
@@ -15,7 +14,16 @@ public class CombatRoom : MonoBehaviour
 
         enemies = GetComponentsInChildren<EnemyHealth>();
 
-        enemiesAlive = enemies.Length;
+        enemiesAlive = 0;
+
+        foreach (EnemyHealth enemy in enemies)
+        {
+            if (enemy != null && !enemy.IsDead)
+            {
+                enemiesAlive++;
+                enemy.OnDeath += OnEnemyDeath;
+            }
+        }
 
         Debug.Log(name + ": " + enemiesAlive + " enemigos");
 
@@ -25,27 +33,15 @@ public class CombatRoom : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void OnEnemyDeath()
     {
-        if (completed) return;
+        if (completed)
+            return;
 
-        int alive = 0;
+        enemiesAlive--;
 
-        foreach (EnemyHealth enemy in enemies)
-        {
-            if (enemy != null && !enemy.IsDead)
-            {
-                alive++;
-            }
-        }
-
-        if (alive != enemiesAlive)
-        {
-            enemiesAlive = alive;
-
-            Debug.Log(name + ": " + enemiesAlive
-                + " enemigos restantes");
-        }
+        Debug.Log(name + ": " + enemiesAlive
+            + " enemigos restantes");
 
         if (enemiesAlive == 0)
         {
@@ -55,7 +51,8 @@ public class CombatRoom : MonoBehaviour
 
     private void CompleteRoom()
     {
-        if (completed) return;
+        if (completed)
+            return;
 
         completed = true;
 
@@ -65,7 +62,20 @@ public class CombatRoom : MonoBehaviour
         }
     }
 
-    
+    private void OnDestroy()
+    {
+        if (enemies == null)
+            return;
+
+        foreach (EnemyHealth enemy in enemies)
+        {
+            if (enemy != null)
+            {
+                enemy.OnDeath -= OnEnemyDeath;
+            }
+        }
+    }
+
     public void EnemyDefeated()
     {
     }

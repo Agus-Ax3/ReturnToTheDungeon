@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class Health : MonoBehaviour, IDamageable
@@ -8,6 +9,8 @@ public abstract class Health : MonoBehaviour, IDamageable
     public float CurrentHealth { get; private set; }
     public float MaxHealth => maxHealth;
     public bool IsDead { get; private set; }
+
+    public event Action OnDeath;
 
     protected virtual void Awake()
     {
@@ -27,6 +30,8 @@ public abstract class Health : MonoBehaviour, IDamageable
         {
             IsDead = true;
             Die();
+
+            OnDeath?.Invoke();
         }
         else
         {
