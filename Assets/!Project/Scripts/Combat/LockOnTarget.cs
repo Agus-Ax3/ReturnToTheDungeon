@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LockOnTarget : MonoBehaviour
+public class LockOnTarget : MonoBehaviour, ILockOnTarget
 {
     [SerializeField] private EnemyHealth enemyHealth;
 

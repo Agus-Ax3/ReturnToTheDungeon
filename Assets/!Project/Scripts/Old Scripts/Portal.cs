@@ -3,12 +3,7 @@ using Unity.Cinemachine;
 
 public class Portal : MonoBehaviour
 {
-    private RoomManager roomManager;
-
-    private void Start()
-    {
-        roomManager = FindFirstObjectByType<RoomManager>();
-    }
+    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,10 +12,11 @@ public class Portal : MonoBehaviour
         CharacterController controller =
             other.GetComponent<CharacterController>();
 
-        if (controller == null || roomManager == null)
+        if (controller == null || RoomManager.Instance == null)
             return;
 
-        Transform destination = roomManager.GetNextDestination();
+        Transform destination =
+            RoomManager.Instance.GetNextDestination();
 
         if (destination == null) return;
 

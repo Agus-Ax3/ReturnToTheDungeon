@@ -41,8 +41,8 @@ public class LockOnSystem : MonoBehaviour
 
         if (IsLockedOn)
         {
-            LockOnTarget target =
-                CurrentTarget.GetComponent<LockOnTarget>();
+            ILockOnTarget target =
+    CurrentTarget.GetComponent<ILockOnTarget>();
 
             if (target == null || !target.IsTargetable)
             {
@@ -84,8 +84,8 @@ public class LockOnSystem : MonoBehaviour
         {
             Debug.Log("Collider encontrado: " + enemy.name);
 
-            LockOnTarget target = 
-            enemy.GetComponentInChildren<LockOnTarget>();
+            ILockOnTarget target =
+    enemy.GetComponentInChildren<ILockOnTarget>();
 
             if (target == null || !target.IsTargetable)
                 continue;
