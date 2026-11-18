@@ -8,6 +8,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private Animator animator;
     [SerializeField] private EnemyWeaponHitbox weaponHitbox;
+    [SerializeField] private CapsuleCollider bodyCollider;
 
     [Header("Detection Settings")]
     [SerializeField] private float detectionRange = 10f;
@@ -166,6 +167,8 @@ public class EnemyAI : MonoBehaviour
         animator.SetBool("IsDead", true);
 
         agent.enabled = false;
+        if (bodyCollider != null)
+            bodyCollider.enabled = false;
     }
 
     private void FacePlayer()

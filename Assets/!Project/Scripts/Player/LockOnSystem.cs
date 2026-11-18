@@ -41,6 +41,15 @@ public class LockOnSystem : MonoBehaviour
 
         if (IsLockedOn)
         {
+            LockOnTarget target =
+                CurrentTarget.GetComponent<LockOnTarget>();
+
+            if (target == null || !target.IsTargetable)
+            {
+                ClearTarget();
+                return;
+            }
+
             float distance = Vector3.Distance(
                 transform.position,
                 CurrentTarget.position
@@ -75,16 +84,11 @@ public class LockOnSystem : MonoBehaviour
         {
             Debug.Log("Collider encontrado: " + enemy.name);
 
-            LockOnTarget target =
-                enemy.GetComponentInChildren<LockOnTarget>();
+            LockOnTarget target = 
+            enemy.GetComponentInChildren<LockOnTarget>();
 
-            if (target == null)
-            {
-                Debug.LogWarning(
-                    "No tiene LockOnTarget: " + enemy.name
-                );
+            if (target == null || !target.IsTargetable)
                 continue;
-            }
 
             Vector3 viewportPoint =
                 mainCamera.WorldToViewportPoint(
