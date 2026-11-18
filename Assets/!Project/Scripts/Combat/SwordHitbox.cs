@@ -8,8 +8,8 @@ public class SwordHitbox : MonoBehaviour
 
     private BoxCollider hitbox;
 
-    private HashSet<EnemyHealth> enemiesHit =
-        new HashSet<EnemyHealth>();
+    private HashSet<IDamageable> enemiesHit =
+        new HashSet<IDamageable>();
 
     private void Awake()
     {
@@ -23,6 +23,7 @@ public class SwordHitbox : MonoBehaviour
         enemiesHit.Clear();
         hitbox.enabled = true;
     }
+
     public void DisableHitbox()
     {
         hitbox.enabled = false;
@@ -30,15 +31,15 @@ public class SwordHitbox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        EnemyHealth enemy =
-            other.GetComponentInParent<EnemyHealth>();
+        IDamageable target =
+            other.GetComponentInParent<IDamageable>();
 
-        if (enemy == null)
+        if (!(target is EnemyHealth))
             return;
 
-        if (enemiesHit.Add(enemy))
+        if (enemiesHit.Add(target))
         {
-            enemy.TakeDamage(damage);
+            target.TakeDamage(damage);
         }
     }
 }

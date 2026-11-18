@@ -1,50 +1,28 @@
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : Health
 {
-    [Header("Health Settings")]
-    [SerializeField] private float maxHealth = 100f;
-
     [Header("References")]
     [SerializeField] private EnemyAI enemyAI;
 
-    public float CurrentHealth { get; private set; }
-    public bool IsDead { get; private set; }
-
-    private void Awake()
+    protected override void Awake()
     {
-        CurrentHealth = maxHealth;
+        base.Awake();
 
         if (enemyAI == null)
             enemyAI = GetComponent<EnemyAI>();
     }
 
-    public void TakeDamage(float damage)
+    protected override void OnHit()
     {
-        if (IsDead || damage <= 0f)
-            return;
-
-        CurrentHealth = Mathf.Max(
-            CurrentHealth - damage, 0f
-        );
+        if (enemyAI != null)
+            enemyAI.ReceiveHit();
 
         Debug.Log("Vida del enemigo: " + CurrentHealth);
-
-        if (CurrentHealth <= 0f)
-        {
-            Die();
-        }
-        else
-        {
-            if (enemyAI != null)
-                enemyAI.ReceiveHit();
-        }
     }
 
-    private void Die()
+    protected override void Die()
     {
-        IsDead = true;
-
         if (enemyAI != null)
             enemyAI.Die();
 
