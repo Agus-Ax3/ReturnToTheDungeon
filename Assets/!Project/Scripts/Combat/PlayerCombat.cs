@@ -75,16 +75,24 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
+
     private void StartAttack()
     {
+        if (animator.GetBool("IsBlocking"))
+            return;
+
         if (animator.IsInTransition(0))
             return;
 
         AnimatorStateInfo state =
             animator.GetCurrentAnimatorStateInfo(0);
 
-        if (!state.IsName("Locomotion") &&
-            !state.IsName("LockOnLocomotion"))
+        bool canAttack =
+            state.IsName("Locomotion") ||
+            state.IsName("LockOnLocomotion") ||
+            state.IsName("Block2");
+
+        if (!canAttack)
             return;
 
         if (!playerStamina.ConsumeStamina(attack1Cost))
@@ -99,6 +107,7 @@ public class PlayerCombat : MonoBehaviour
         animator.SetBool("IsAttacking", true);
         animator.SetTrigger("Attack");
     }
+
 
     private void TryCombo()
     {
