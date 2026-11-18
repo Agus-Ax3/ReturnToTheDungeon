@@ -7,6 +7,7 @@ public class EnemyAI : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform player;
     [SerializeField] private Animator animator;
+    [SerializeField] private EnemyWeaponHitbox weaponHitbox;
 
     [Header("Detection Settings")]
     [SerializeField] private float detectionRange = 10f;
@@ -19,6 +20,8 @@ public class EnemyAI : MonoBehaviour
     private float attackTimer;
 
     public bool IsAttacking { get; private set; }
+    public bool IsHit { get; private set; }
+    public bool IsDead { get; private set; }
 
     private void Awake()
     {
@@ -27,13 +30,16 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
+        if (IsDead)
+            return;
+
         if (player == null || animator == null ||
             !agent.isOnNavMesh)
             return;
 
         attackTimer -= Time.deltaTime;
 
-        if (IsAttacking)
+        if (IsAttacking || IsHit)
         {
             StopMovement();
             UpdateAnimations();
@@ -77,11 +83,15 @@ public class EnemyAI : MonoBehaviour
 
     private void StopMovement()
     {
-        agent.isStopped = true;
+        if (agent.enabled && agent.isOnNavMesh)
+            agent.isStopped = true;
     }
 
     private void TryAttack()
     {
+        if (IsDead || IsHit || IsAttacking)
+            return;
+
         if (animator.IsInTransition(0))
             return;
 
@@ -102,6 +112,60 @@ public class EnemyAI : MonoBehaviour
     {
         IsAttacking = false;
         attackTimer = attackCooldown;
+    }
+
+    public void ReceiveHit()
+    {
+        if (IsDead)
+            return;
+
+        IsAttacking = false;
+        IsHit = true;
+
+        if (weaponHitbox != null)
+            weaponHitbox.DisableHitbox();
+
+        StopMovement();
+
+        animator.ResetTrigger("Attack");
+        animator.ResetTrigger("Hit");
+        animator.SetTrigger("Hit");
+        animator.SetFloat("Speed", 0f);
+    }
+
+    public void EndHit()
+    {
+        if (IsDead)
+            return;
+
+        IsHit = false;
+        attackTimer = attackCooldown;
+    }
+
+    public void Die()
+    {
+        if (IsDead)
+            return;
+
+        IsDead = true;
+        IsAttacking = false;
+        IsHit = false;
+
+        if (weaponHitbox != null)
+            weaponHitbox.DisableHitbox();
+
+        StopMovement();
+
+        if (agent.enabled && agent.isOnNavMesh)
+            agent.ResetPath();
+
+        animator.ResetTrigger("Attack");
+        animator.ResetTrigger("Hit");
+
+        animator.SetFloat("Speed", 0f);
+        animator.SetBool("IsDead", true);
+
+        agent.enabled = false;
     }
 
     private void FacePlayer()
