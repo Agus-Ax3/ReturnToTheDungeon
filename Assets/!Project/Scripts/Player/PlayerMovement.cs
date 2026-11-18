@@ -187,7 +187,7 @@ public class PlayerMovement : MonoBehaviour
                  sprintAction.action.IsPressed() &&
                  input.sqrMagnitude > 0.01f;
 
-        if (isRunning && playerStamina != null)
+        if (isRunning && playerStamina != null && sprintStaminaCost > 0f)
         {
             isRunning = playerStamina.ConsumeStamina(
                 sprintStaminaCost * Time.deltaTime
