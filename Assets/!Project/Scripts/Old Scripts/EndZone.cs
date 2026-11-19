@@ -1,38 +1,58 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem;
 
 public class EndZone : MonoBehaviour
 {
-    private bool reached = false;
+    [Header("References")]
+    [SerializeField] private GameObject victoryPanel;
 
-    private void Update()
-    {
-        if (reached && Keyboard.current.rKey.wasPressedThisFrame)
-        {
-            int currentScene = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(currentScene);
-        }
-    }
+    [Header("Scene Settings")]
+    [SerializeField] private string mainMenuScene = "MainMenu";
+
+    private bool reached = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            reached = true;
-            Debug.Log("Fin del prototipo");
-        }
+        if (reached || !other.CompareTag("Player"))
+            return;
+
+        PlayerHealth playerHealth =
+            other.GetComponentInParent<PlayerHealth>();
+
+        if (playerHealth == null || playerHealth.IsDead)
+            return;
+
+        reached = true;
+
+        MouseController mouseController =
+            playerHealth.GetComponent<MouseController>();
+
+        if (mouseController != null)
+            mouseController.enabled = false;
+
+        victoryPanel.SetActive(true);
+
+        Time.timeScale = 0f;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        Debug.Log("Victoria: Dungeon completada");
     }
 
-    private void OnGUI()
+    public void PlayAgain()
     {
-        if (reached)
-        {
-            GUIStyle style = new GUIStyle(GUI.skin.label);
-            style.fontSize = 40;
-            style.alignment = TextAnchor.MiddleCenter;
-            GUI.Label(new Rect(0, 0, Screen.width, Screen.height),
-                      "Fin del prototipo\n\nPresioná R para reiniciar", style);
-        }
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().buildIndex
+        );
+    }
+
+    public void ReturnToMainMenu()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(mainMenuScene);
     }
 }
