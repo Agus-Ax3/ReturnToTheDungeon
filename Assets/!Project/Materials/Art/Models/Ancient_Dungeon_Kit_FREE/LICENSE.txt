@@ -1,0 +1,26 @@
+CHERIAT ASSET LICENSE
+Ancient Dungeon Kit - Free Sample Edition
+
+These assets are the original work and property of CHERIAT. This license grants you the right to use them under the terms below.
+
+YOU MAY
+- Use the assets in personal projects.
+- Use the assets in commercial and non-commercial games.
+- Use the assets in Roblox experiences and in other game engines.
+- Modify the assets for your own projects.
+- Integrate the assets into larger games or interactive projects.
+- Distribute finished games that contain the assets.
+
+YOU MAY NOT
+- Resell the original asset files.
+- Redistribute the models or textures as standalone files.
+- Upload the original files as free asset packs.
+- Repackage the assets as another asset pack or sell them on other marketplaces.
+- Share purchased files publicly or with unauthorized users.
+- Claim ownership or authorship of the original CHERIAT assets.
+- Share the Blender source files with others.
+
+NOTES
+- Commercial usage rights are the same for every edition: Free Sample, Pack A, Pack B, Complete Collection and Complete Collection + Blender Source.
+- Only the Complete Collection + Blender Source edition includes the editable Blender source file. It does not grant exclusive commercial rights, and it does not grant permission to redistribute or resell the original asset pack.
+- You may distribute finished games containing the assets, but you may not distribute the original asset files as standalone downloadable resources.

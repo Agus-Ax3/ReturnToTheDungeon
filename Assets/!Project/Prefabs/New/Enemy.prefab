@@ -173,7 +173,7 @@ MonoBehaviour:
   bodyCollider: {fileID: 8150720729678194426}
   detectionRange: 10
   attackRange: 1.5
-  attackCooldown: 1.5
+  attackCooldown: 0.9
 --- !u!1 &4768337412533988735
 GameObject:
   m_ObjectHideFlags: 0
