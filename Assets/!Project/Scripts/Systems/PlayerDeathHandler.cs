@@ -1,48 +1,70 @@
-
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class PlayerDeathHandler : MonoBehaviour
 {
-    [Header("Death Settings")]
-    [SerializeField] private float restartDelay = 3f;
+    [Header("Defeat UI")]
+    [SerializeField] private GameObject defeatPanel;
+
+    [SerializeField] private string mainMenuScene = "MainMenu";
 
     private PlayerHealth playerHealth;
     private LockOnSystem lockOnSystem;
+    private MouseController mouseController;
 
-    private bool restarting = false;
+    private bool defeated = false;
 
     private void Awake()
     {
         playerHealth = GetComponent<PlayerHealth>();
         lockOnSystem = GetComponent<LockOnSystem>();
+        mouseController = GetComponent<MouseController>();
+
+        if (defeatPanel != null)
+            defeatPanel.SetActive(false);
     }
 
     private void Update()
     {
-        if (restarting || playerHealth == null)
-            return;
-
-        if (playerHealth.IsDead)
+        if (playerHealth != null && playerHealth.IsDead)
         {
-            restarting = true;
-
-            if (lockOnSystem != null)
-                lockOnSystem.ClearTarget();
-
-            StartCoroutine(RestartRun());
+            ShowDefeat();
         }
     }
 
-    private IEnumerator RestartRun()
+    public void ShowDefeat()
     {
-        Debug.Log("Jugador derrotado. Reiniciando run...");
+        if (defeated)
+            return;
 
-        yield return new WaitForSecondsRealtime(restartDelay);
+        defeated = true;
 
-        SceneManager.LoadScene(
-            gameObject.scene.buildIndex
-        );
+        if (lockOnSystem != null)
+            lockOnSystem.ClearTarget();
+
+        if (mouseController != null)
+            mouseController.enabled = false;
+
+        if (defeatPanel != null)
+            defeatPanel.SetActive(true);
+
+        Time.timeScale = 0f;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void PlayAgain()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(gameObject.scene.buildIndex);
+    }
+
+    public void ReturnToMainMenu()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(mainMenuScene);
     }
 }

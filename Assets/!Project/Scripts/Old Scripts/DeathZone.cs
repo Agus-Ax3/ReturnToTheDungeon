@@ -1,15 +1,18 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class DeathZone : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!other.CompareTag("Player"))
+            return;
+
+        PlayerDeathHandler deathHandler =
+            other.GetComponentInParent<PlayerDeathHandler>();
+
+        if (deathHandler != null)
         {
-            Debug.Log("Caíste al vacío. Reiniciando la run");
-            int currentScene = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(currentScene);
+            deathHandler.ShowDefeat();
         }
     }
 }
