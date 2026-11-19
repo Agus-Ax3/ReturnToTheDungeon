@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class SwordHitbox : MonoBehaviour
 {
     [SerializeField] private float damage = 25f;
+    private float damageMultiplier = 1f;
 
     private BoxCollider hitbox;
 
@@ -39,7 +40,14 @@ public class SwordHitbox : MonoBehaviour
 
         if (enemiesHit.Add(target))
         {
-            target.TakeDamage(damage);
+            target.TakeDamage(damage * damageMultiplier);
         }
+    }
+    public void IncreaseDamage(float percentage)
+    {
+        if (percentage <= 0f)
+            return;
+
+        damageMultiplier += percentage / 100f;
     }
 }

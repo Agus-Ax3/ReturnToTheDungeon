@@ -52,4 +52,12 @@ public abstract class Health : MonoBehaviour, IDamageable
     protected abstract void Die();
 
     protected abstract void OnHit();
+    public void IncreaseMaxHealth(float amount)
+    {
+        if (IsDead || amount <= 0f)
+            return;
+
+        maxHealth += amount;
+        Heal(amount);
+    }
 }

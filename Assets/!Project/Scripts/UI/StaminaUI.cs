@@ -15,6 +15,7 @@ public class StaminaUI : MonoBehaviour
 
     private void Update()
     {
+        staminaSlider.maxValue = playerStamina.MaxStamina;
         staminaSlider.value = playerStamina.CurrentStamina;
     }
 }

@@ -49,4 +49,16 @@ public class PlayerStamina : MonoBehaviour
 
         return true;
     }
+    public void IncreaseMaxStamina(float amount)
+    {
+        if (amount <= 0f)
+            return;
+
+        maxStamina += amount;
+
+        currentStamina = Mathf.Min(
+            currentStamina + amount,
+            maxStamina
+        );
+    }
 }
