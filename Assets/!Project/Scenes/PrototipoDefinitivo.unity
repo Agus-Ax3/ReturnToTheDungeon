@@ -47424,9 +47424,11 @@ MonoBehaviour:
   groundCheck: {fileID: 1572409524}
   groundCheckRadius: 0.3
   groundMask:
-    serializedVersion: 2
     m_Bits: 55
   cameraTransforms: {fileID: 0}
+  controller: {fileID: 0}
+  verticalVelocity: 0
+  isGrounded: 0
 --- !u!143 &1299925477
 CharacterController:
   m_ObjectHideFlags: 0
@@ -47484,6 +47486,7 @@ MonoBehaviour:
   damage: 1
   range: 1.5
   cooldown: 0.5
+  nextAttackTime: 0
 --- !u!114 &1299925480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78256,6 +78259,10 @@ PrefabInstance:
     - target: {fileID: 7555412274010504392, guid: bde0227edc6313646854ddc44ae7bbfc, type: 3}
       propertyPath: m_Name
       value: PlayerSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 7784924938503958237, guid: bde0227edc6313646854ddc44ae7bbfc, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7867904754520909077, guid: bde0227edc6313646854ddc44ae7bbfc, type: 3}
       propertyPath: moveAction
