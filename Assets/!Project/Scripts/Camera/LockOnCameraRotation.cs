@@ -32,13 +32,13 @@ public class LockOnCameraRotation : MonoBehaviour
         if (direction.sqrMagnitude < 0.01f)
             return;
 
-        // Ángulo horizontal hacia el enemigo
+        
         float targetAngle = Mathf.Atan2(
             direction.x,
             direction.z
         ) * Mathf.Rad2Deg;
 
-        // Interpolar el ángulo para evitar giros bruscos
+        
         float currentAngle =
             orbitalFollow.HorizontalAxis.Value;
 
@@ -49,7 +49,7 @@ public class LockOnCameraRotation : MonoBehaviour
                 rotationSpeed * Time.deltaTime
             );
 
-        // Mantener la inclinación vertical
+       
         orbitalFollow.VerticalAxis.Value =
             verticalAngle;
     }

@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        // Impedir movimiento durante daño o muerte
+        
         if (playerHealth != null &&
             (playerHealth.IsDead || playerHealth.IsHit))
         {
@@ -125,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleJump()
     {
-        // Recordar la pulsacion de salto
+       
         if (jumpAction != null &&
             jumpAction.action.WasPressedThisFrame())
         {
@@ -136,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
             jumpBufferTimer -= Time.deltaTime;
         }
 
-        // Permitir saltar poco despues de dejar una plataforma
+        
         if (controller.isGrounded)
         {
             coyoteTimer = coyoteTime;
@@ -149,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
             coyoteTimer -= Time.deltaTime;
         }
 
-        // Ejecutar el salto
+        
         if (jumpBufferTimer > 0f && coyoteTimer > 0f)
         {
             verticalVelocity = Mathf.Sqrt(
@@ -168,7 +168,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 input = moveAction.action.ReadValue<Vector2>();
 
-        // Movimiento relativo a la camara
+        
         Vector3 forward = cameraTransform.forward;
         Vector3 right = cameraTransform.right;
 
@@ -196,7 +196,7 @@ public class PlayerMovement : MonoBehaviour
 
         float currentSpeed = isRunning ? runSpeed : walkSpeed;
 
-        // Rotacion del personaje
+        
         if (lockOnSystem != null &&
             lockOnSystem.IsLockedOn &&
             lockOnSystem.CurrentTarget != null)
@@ -231,16 +231,16 @@ public class PlayerMovement : MonoBehaviour
             );
         }
 
-        // Gravedad
+        
         if (verticalVelocity < 0f)
         {
-            // Caida mas rapida
+            
             verticalVelocity +=
                 gravity * fallMultiplier * Time.deltaTime;
         }
         else
         {
-            // Ascenso normal
+           
             verticalVelocity += gravity * Time.deltaTime;
         }
 
@@ -249,7 +249,7 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(velocity * Time.deltaTime);
 
-        // Actualizar las animaciones
+        
         UpdateAnimations(direction.magnitude, isRunning);
 
         UpdateDirectionalAnimations(direction, isRunning);

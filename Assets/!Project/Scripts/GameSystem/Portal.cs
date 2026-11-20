@@ -20,14 +20,14 @@ public class Portal : MonoBehaviour
 
         if (destination == null) return;
 
-        // Desactivar el LockOn
+        
         LockOnSystem lockOnSystem =
             other.GetComponent<LockOnSystem>();
 
         if (lockOnSystem != null)
             lockOnSystem.ClearTarget();
 
-        // Obtener las cámaras del PlayerSystem
+        
         Transform player = other.transform;
 
         Transform playerSystem = player.parent != null
@@ -39,7 +39,7 @@ public class Portal : MonoBehaviour
 
         Vector3 oldPosition = player.position;
 
-        // Guardar las posiciones de los objetivos de cámara
+        
         Vector3[] oldTargetPositions = new Vector3[cameras.Length];
 
         for (int i = 0; i < cameras.Length; i++)
@@ -48,7 +48,7 @@ public class Portal : MonoBehaviour
                 oldTargetPositions[i] = cameras[i].Follow.position;
         }
 
-        // Teletransportar al jugador
+        
         controller.enabled = false;
 
         player.SetPositionAndRotation(
@@ -58,14 +58,14 @@ public class Portal : MonoBehaviour
 
         controller.enabled = true;
 
-        // Actualizar el objetivo de la cámara LockOn
+        
         LockOnFocusController focus =
             playerSystem.GetComponentInChildren<LockOnFocusController>(true);
 
         if (focus != null)
             focus.transform.position = player.position + Vector3.up * 1.5f;
 
-        // Actualizar las cámaras Cinemachine
+        
         for (int i = 0; i < cameras.Length; i++)
         {
             Transform target = cameras[i].Follow;

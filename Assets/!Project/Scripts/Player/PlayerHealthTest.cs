@@ -10,7 +10,7 @@ public class PlayerHealthTest : MonoBehaviour
         if (Keyboard.current == null || playerHealth == null)
             return;
 
-        // Ataque frontal
+        
         if (Keyboard.current.hKey.wasPressedThisFrame)
         {
             Vector3 attackerPosition =
@@ -20,13 +20,13 @@ public class PlayerHealthTest : MonoBehaviour
             playerHealth.TakeDamage(20f, attackerPosition);
         }
 
-        // Curar al jugador
+        
         if (Keyboard.current.jKey.wasPressedThisFrame)
         {
             playerHealth.Heal(20f);
         }
 
-        // Ataque por detrás
+        
         if (Keyboard.current.kKey.wasPressedThisFrame)
         {
             Vector3 attackerPosition =

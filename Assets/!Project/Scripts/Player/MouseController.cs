@@ -11,14 +11,14 @@ public class MouseController : MonoBehaviour
 
     private void Update()
     {
-        // ESC libera el mouse
+        
         if (Keyboard.current != null &&
             Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             UnlockCursor();
         }
 
-        // Click izquierdo vuelve a capturar el mouse
+        
         if (Mouse.current != null &&
             Mouse.current.leftButton.wasPressedThisFrame &&
             Cursor.lockState != CursorLockMode.Locked)
